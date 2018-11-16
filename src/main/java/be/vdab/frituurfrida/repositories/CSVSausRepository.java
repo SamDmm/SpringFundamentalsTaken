@@ -25,14 +25,7 @@ public class CSVSausRepository implements SausRepository {
 		try (BufferedReader reader = Files.newBufferedReader(PAD)) {
 			for (String regel; (regel = reader.readLine()) != null;) {
 				if (!regel.isEmpty()) {
-					String[] regelArray = regel.split(",");
-					Long nummer = Long.valueOf(regelArray[0]);
-					String naam = regelArray[1];
-					List<String> ingredienten = new ArrayList<>();
-					for (int i = 2; i < regelArray.length; i++) {
-						ingredienten.add(regelArray[i]);
-					}
-					sausList.add(new Saus(nummer, naam, ingredienten));
+					sausList.add(maakSaus(regel));
 				}
 			}
 		} catch (IOException ex) {
@@ -41,5 +34,16 @@ public class CSVSausRepository implements SausRepository {
 			throw new SausRepositoryException(fout);
 		}
 		return sausList;
+	}
+	
+	public Saus maakSaus(String regel) {
+		String[] regelArray = regel.split(",");
+		Long nummer = Long.valueOf(regelArray[0]);
+		String naam = regelArray[1];
+		List<String> ingredienten = new ArrayList<>();
+		for (int i = 2; i < regelArray.length; i++) {
+			ingredienten.add(regelArray[i]);
+		}
+		return new Saus(nummer, naam, ingredienten);
 	}
 }
