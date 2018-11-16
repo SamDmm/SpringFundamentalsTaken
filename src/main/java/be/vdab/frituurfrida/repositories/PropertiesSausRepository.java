@@ -16,13 +16,14 @@ import org.springframework.stereotype.Component;
 import be.vdab.frituurfrida.entities.Saus;
 import be.vdab.frituurfrida.exceptions.SausRepositoryException;
 
+
 @Component
-@Order(2)
-public class CSVSausRepository implements SausRepository {
+@Order(1)
+public class PropertiesSausRepository implements SausRepository {
 	public final Path pad;
 	public static final Logger LOGGER = LoggerFactory.getLogger(CSVSausRepository.class);
 	
-	CSVSausRepository(@Value("${sauzenCSVPath}") Path pad) {
+	public PropertiesSausRepository(@Value("${sauzenPropertiesPath}") Path pad) {
 		this.pad = pad;
 	}
 	
@@ -40,21 +41,21 @@ public class CSVSausRepository implements SausRepository {
 			LOGGER.error(fout, ex);
 			throw new SausRepositoryException(fout);
 		}
-		LOGGER.info("Sauzen gelezen via CSVSausRepository");
+		LOGGER.info("Sauzen gelezen via PropertiesSausRepository");
 		return sausList;
 	}
 	
 	public Saus maakSaus(String regel) {
-		String[] regelArray = regel.split(",");
+		String[] regelArray = regel.split(":");
 		if (regelArray.length < 2) {
 			String fout = pad + ": " + regel + " bevat minder dan 2 onderdelen";
 			LOGGER.error(fout);
 			throw new SausRepositoryException(fout);
 		}
 		try {
-			Saus saus = new Saus(Long.parseLong(regelArray[0]), regelArray[1]);
-			for (int i = 2; i < regelArray.length; i++) {
-				saus.addIngredient(regelArray[i]);
+			Saus saus = new Saus(Long.parseLong(regelArray[0]), regelArray[1].split(",")[0]);
+			for (int i = 1; i < regelArray[1].split(",").length; i++) {
+				saus.addIngredient(regelArray[1].split(",")[i]);
 			}
 			return saus;
 		} catch (NumberFormatException ex) {
