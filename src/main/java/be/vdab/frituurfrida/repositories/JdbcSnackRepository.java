@@ -14,10 +14,10 @@ import be.vdab.frituurfrida.exceptions.SnackNietGevondenException;
 @Repository
 public class JdbcSnackRepository implements SnackRepository {
 	private final JdbcTemplate template;
-	private final RowMapper<Snack> rowMapper = (resultSet, rowNum) -> new Snack(resultSet.getLong("id"), resultSet.getString("naam"), resultSet.getBigDecimal("prijs"));
-	private static final String SELECT_BY_ID = "select id, naam, prijs from snacks where id = ?";
-	private static final String UPDATE_SNACK = "update snacks set naam, prijs where id = ?";
-	private static final String SELECT_BY_NAAM = "select id, naam, prijs from snacks where naam = ?";
+	private final RowMapper<Snack> snackRowMapper = (resultSet, rowNum) -> new Snack(resultSet.getLong("id"), resultSet.getString("naam"), resultSet.getBigDecimal("prijs"));
+	private static final String READ = "select id, naam, prijs from snacks where id=?";
+	private static final String UPDATE_SNACK = "update snacks set naam=?, prijs=? where id=?";
+	private static final String SELECT_BY_BEGIN_LETTER = "select id, naam, prijs from snacks where naam like ?";
 	
 	JdbcSnackRepository(JdbcTemplate template) {
 		this.template = template;
@@ -25,7 +25,7 @@ public class JdbcSnackRepository implements SnackRepository {
 	@Override
 	public Optional<Snack> read(long id) {
 		try {
-			return Optional.of(template.queryForObject(SELECT_BY_ID, rowMapper, id));
+			return Optional.of(template.queryForObject(READ, snackRowMapper, id));
 		} catch (IncorrectResultSizeDataAccessException ex) {
 			return Optional.empty();
 		}
@@ -38,8 +38,6 @@ public class JdbcSnackRepository implements SnackRepository {
 	}
 	@Override
 	public List<Snack> findByBeginNaam(String beginNaam) {
-		return template.query(SELECT_BY_NAAM, rowMapper);
+		return template.query(SELECT_BY_BEGIN_LETTER, snackRowMapper, beginNaam+'%');
 	}
-	
-
 }

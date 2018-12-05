@@ -13,6 +13,10 @@ public class Snack {
 		this.prijs = prijs;
 	}
 	
+	public Snack() {
+	}
+
+
 	public Snack(String naam, BigDecimal prijs) {
 		this.naam = naam;
 		this.prijs = prijs;
