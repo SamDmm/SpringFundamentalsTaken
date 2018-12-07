@@ -13,7 +13,7 @@
   <c:url value="/snacks" var="url"/>
   <form:form action="${url}" modelAttribute="beginNaamForm" method="get">
     <form:label path="beginnaam">Begin naam: <form:errors path="beginnaam"/></form:label>
-    <form:input path="beginnaam" autofocus="autofocus"/>
+    <form:input path="beginnaam" autofocus="autofocus" required='required'/>
     <input type="submit" value="zoeken">
     <form:errors/>
   </form:form>
