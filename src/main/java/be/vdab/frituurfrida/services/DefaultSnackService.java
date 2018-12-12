@@ -22,6 +22,7 @@ public class DefaultSnackService implements SnackService {
 		return snackRepository.read(id);
 	}
 	@Override
+	@Transactional(readOnly = false)
 	public void update(Snack snack) {
 		snackRepository.update(snack);
 		
