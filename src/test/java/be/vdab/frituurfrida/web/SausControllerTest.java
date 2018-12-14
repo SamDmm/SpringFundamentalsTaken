@@ -19,9 +19,10 @@ public class SausControllerTest {
 	private SausController controller;
 	@Mock
 	private SausService sausService;
+	private SausRadenSpel sausRadenSpel;
 	@Before
 	public void before() {
-		controller = new SausController(sausService);
+		controller = new SausController(sausService, sausRadenSpel);
 	}
 	@Test
 	public void sauzenWerktSamenMetDeJspSauzen() {
