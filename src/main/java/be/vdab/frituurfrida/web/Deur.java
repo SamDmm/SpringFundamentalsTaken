@@ -1,8 +1,7 @@
 package be.vdab.frituurfrida.web;
 
 import java.io.Serializable;
-
-class Deur implements Serializable {
+public class Deur implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private boolean open;
 	private boolean metFriet;
@@ -12,6 +11,7 @@ class Deur implements Serializable {
 	public boolean isOpen() {
 		return open;
 	}
+	
 	public void open() {
 		this.open = true;
 	}
