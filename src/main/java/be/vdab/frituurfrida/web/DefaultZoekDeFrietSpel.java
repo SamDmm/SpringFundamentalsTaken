@@ -3,6 +3,11 @@ package be.vdab.frituurfrida.web;
 import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
+
+@Component
+@SessionScope
 class DefaultZoekDeFrietSpel implements Serializable, ZoekDeFrietSpel {
 	private static final long serialVersionUID = 1L;
 	private static final int AANTAL_DEUREN = 7;
@@ -25,7 +30,7 @@ class DefaultZoekDeFrietSpel implements Serializable, ZoekDeFrietSpel {
 	@Override
 	public void resetDeuren() {
 		int indexMetFriet = ThreadLocalRandom.current().nextInt(AANTAL_DEUREN);
-		for (int index = 0; index != AANTAL_DEUREN; index++) {
+		for (int index = 0; index < AANTAL_DEUREN; index++) {
 			deuren[index] = new Deur(index == indexMetFriet);
 		}
 	}

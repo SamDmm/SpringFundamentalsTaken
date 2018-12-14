@@ -9,11 +9,11 @@ class Deur implements Serializable {
 	Deur(boolean metFriet) {
 		this.metFriet = metFriet;
 	}
-	void open() {
-		open = true;
-	}
 	public boolean isOpen() {
 		return open;
+	}
+	public void open() {
+		this.open = true;
 	}
 	public boolean isMetFriet() {
 		return metFriet;
