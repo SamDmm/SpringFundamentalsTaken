@@ -46,7 +46,7 @@ class SausController {
 		sausRadenSpel.doeGok(form.getLetter());
 		return new ModelAndView(REDIRECT_NA_LETTER_RADEN);
 	}
-	@GetMapping("volgendegok")
+	@GetMapping("raden/volgendegok")
 	ModelAndView volgendeGok() {
 		return new ModelAndView(RADEN_VIEW, "spel", sausRadenSpel).addObject(new SausRadenForm());
 	}
