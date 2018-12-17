@@ -12,11 +12,19 @@
   <h1>Saus raden</h1>
   <p>Te raden saus: ${spel.sausNaamMetPuntjes}</p>
   <c:url value="/sauzen/raden" var="url"/>
-  <form:form action= "${url}" modelAttribute="sausRadenForm" method="post" id="radenForm">
-    <form:label path="letter">Letter: </form:label>
-    <form:input path="letter" required="required" autofocus="autofocus"/>
-    <input type="submit" value="Raden" id="gokKnop">
-  </form:form>
+  <c:choose>
+  <c:when test="${spel.gewonnen}">U hebt gewonnen, de saus was ${spel.sausNaam}</c:when>
+  <c:when test="${spel.verloren}">U hebt verloren, de saus was ${spel.sausNaam}</c:when>
+  <c:otherwise>
+    <form:form action= "${url}" modelAttribute="sausRadenForm" method="post" id="radenForm">
+      <form:label path="letter">Letter: </form:label>
+      <form:input path="letter" size="1" maxLength="1" required="required" autofocus="autofocus" />
+      <input type="submit" value="Raden" id="gokKnop">
+    </form:form>
+  
+  </c:otherwise>
+	  
+  </c:choose>
   
   <c:url value="/sauzen/raden/nieuwspel" var="url"/>
   <form method="post" action="${url}">

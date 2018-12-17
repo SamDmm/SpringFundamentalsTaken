@@ -12,6 +12,7 @@ public class DefaultSausRadenSpel implements SausRadenSpel, Serializable {
 	private String sausNaam;
 	private StringBuilder sausNaamMetPuntjes;
 	private int verkeerdeBeurten;
+	private static final int MAX_BEURTEN = 10;
 	
 	public String getSausNaam() {
 		return sausNaam;
@@ -25,7 +26,15 @@ public class DefaultSausRadenSpel implements SausRadenSpel, Serializable {
 	public String getSausNaamMetPuntjes() {
 		return sausNaamMetPuntjes.toString();
 	}
-
+	public boolean isGewonnen() {
+		return sausNaamMetPuntjes.indexOf(".") == -1;
+	}
+	public boolean isVerloren() {
+		return verkeerdeBeurten == MAX_BEURTEN;
+	}
+	public static int getMAX_BEURTEN() {
+		return MAX_BEURTEN;
+	}
 	public void reset(String sausNaam) {
 		this.sausNaam = sausNaam;
 		verkeerdeBeurten = 0;
@@ -45,7 +54,5 @@ public class DefaultSausRadenSpel implements SausRadenSpel, Serializable {
 		} else {
 			verkeerdeBeurten++;
 		}
-		
 	}
-	
 }

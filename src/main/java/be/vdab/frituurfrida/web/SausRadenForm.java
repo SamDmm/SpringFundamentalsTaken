@@ -4,12 +4,13 @@ import javax.validation.constraints.NotNull;
 
 public class SausRadenForm {
 	@NotNull
-	private char letter;
+	private Character letter;
 
-	public char getLetter() {
+	public Character getLetter() {
 		return letter;
 	}
-	public void setLetter(char letter) {
+	public void setLetter(Character letter) {
 		this.letter = letter;
 	}
+	
 }
