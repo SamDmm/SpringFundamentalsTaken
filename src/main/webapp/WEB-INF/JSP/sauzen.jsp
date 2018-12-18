@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix="vdab" uri="http://vdab.be/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<c:import url='/WEB-INF/JSP/head.jsp'>
-		<c:param name='title' value='Sauzen'/>
-	</c:import>
+  <vdab:head title="Sauzen"/>
 </head>
 <body>
+	<vdab:menu/>
 	<h1>Sauzen</h1>
 	<c:forEach var='saus' items='${sauzen}'>
 		<h2>${saus.naam}</h2>

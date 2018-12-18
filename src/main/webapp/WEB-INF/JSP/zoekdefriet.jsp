@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="vdab" uri="http://vdab.be/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
-  <c:import url="/WEB-INF/JSP/head.jsp">
-    <c:param name="title" value="Zoek de friet"/>
-  </c:import>
+  <vdab:head title="Zoek de friet"/>
 </head>
 <body>
+  <vdab:menu/>
   <h1>Zoek de friet</h1>
   <c:url value="/frieten/zoekdefriet" var="url"/>
   <form action="${url}" method="post">
