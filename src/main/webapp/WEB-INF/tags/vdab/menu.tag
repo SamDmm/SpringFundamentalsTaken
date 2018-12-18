@@ -9,7 +9,8 @@
       <li><a href="<c:url value="/sauzen"/>">Sauzen</a></li>
       <li><a href="<c:url value="/sauzen/raden"/>">Sauzen raden</a></li>
       <li><a href="<c:url value="/frieten/zoekdefriet"/>">Friet spel</a></li>
-      <li><a href="<c:url value="/voorkeurtaal"/>">Voorkeur taal</a></li>  
+      <li><a href="<c:url value="/voorkeurtaal"/>">Voorkeur taal</a></li>
+      <li><a href="<c:url value="/gastenboek"/>">Gastenboek</a></li>
     </ul>
   </nav>
 </header>
