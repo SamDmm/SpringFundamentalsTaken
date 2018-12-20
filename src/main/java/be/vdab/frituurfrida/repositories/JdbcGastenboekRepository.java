@@ -26,6 +26,7 @@ class JdbcGastenboekRepository implements GastenboekRepository {
 	public void create(GastenboekEntry entry) {
 		Map<String, Object> kolomWaarden = new HashMap<>();
 		kolomWaarden.put("naam", entry.getNaam());
+		kolomWaarden.put("datumTijd", entry.getDatum());
 		kolomWaarden.put("bericht", entry.getBericht());
 		Number id = insert.executeAndReturnKey(kolomWaarden);
 		entry.setId(id.longValue());
@@ -33,7 +34,7 @@ class JdbcGastenboekRepository implements GastenboekRepository {
 	private final RowMapper<GastenboekEntry> gastenboekEntryRowMapper = 
 			(resultSet, RowNum) -> new GastenboekEntry(resultSet.getLong("id"), resultSet.getString("naam"),
 					resultSet.getTimestamp("datumTijd").toLocalDateTime(), resultSet.getString("bericht"));
-	private static final String SELECT_ALL = "select id, naam, datumTijd, bericht from gastenboek";
+	private static final String SELECT_ALL = "select id, naam, datumTijd, bericht from gastenboek order by datumTijd desc";
 	@Override
 	public List<GastenboekEntry> findAll() {
 		return template.query(SELECT_ALL, gastenboekEntryRowMapper);

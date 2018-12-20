@@ -1,9 +1,11 @@
 package be.vdab.frituurfrida.web;
 
-import java.util.List;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,21 +14,28 @@ import be.vdab.frituurfrida.services.GastenboekService;
 
 @Controller
 @RequestMapping("gastenboek")
-class GastenboekController {
+public class GastenboekController {
 	private final GastenboekService service;
-	private static final String GASTENBOEK_VIEW = "gastenboek";
 	
 	GastenboekController(GastenboekService service) {
 		this.service = service;
 	}
+	private static final String GASTENBOEK_VIEW = "gastenboek";
 	@GetMapping
 	ModelAndView toonGastenboek() {
-		List<GastenboekEntry> gastenboekList = service.findAll();
-		return new ModelAndView(GASTENBOEK_VIEW, "gastenboekList", gastenboekList);
+		return new ModelAndView(GASTENBOEK_VIEW, "gastenboekList", service.findAll());
 	}
 	@GetMapping("toevoegen")
 	ModelAndView toevoegen() {
-		List<GastenboekEntry> gastenboekList = service.findAll();
-		return new ModelAndView(GASTENBOEK_VIEW, "gastenboekList", gastenboekList).addObject(new GastenboekEntry());
+		return new ModelAndView(GASTENBOEK_VIEW, "gastenboekList", service.findAll()).addObject(new GastenboekEntry());
+	}
+	private static final String REDIRECT_GASTENBOEK_VIEW = "redirect:/gastenboek";
+	@PostMapping()
+	ModelAndView toevoegen(@Valid GastenboekEntry gastenboekEntry, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return new ModelAndView(GASTENBOEK_VIEW, "gastenboek", service.findAll());
+		}
+		service.create(gastenboekEntry);
+		return new ModelAndView(REDIRECT_GASTENBOEK_VIEW);
 	}
 }
