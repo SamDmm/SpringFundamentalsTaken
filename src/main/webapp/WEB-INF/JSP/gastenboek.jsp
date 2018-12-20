@@ -28,12 +28,16 @@
     </c:otherwise>
   </c:choose>
   <c:if test="${not empty gastenboekList}">
+    <c:url value="/gastenboek/verwijderen" var="url"/>
+    <form:form action="${url}" method="post">
     <dl>
     <c:forEach var="gastenboekEntry" items="${gastenboekList}">
-      <dt><spring:eval expression="gastenboekEntry.datum"/> ${gastenboekEntry.naam}</dt>
+      <dt><spring:eval expression="gastenboekEntry.datum"/> ${gastenboekEntry.naam}<input type="checkbox" name="verwijderid" value="${gastenboekEntry.id}"/></dt>
       <dd>${gastenboekEntry.bericht}</dd>
     </c:forEach>
     </dl>
+    <input type="submit" value="verwijderen">
+        </form:form>
   </c:if>
 </body>
 </html>

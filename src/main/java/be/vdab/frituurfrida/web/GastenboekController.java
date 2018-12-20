@@ -29,13 +29,24 @@ public class GastenboekController {
 	ModelAndView toevoegen() {
 		return new ModelAndView(GASTENBOEK_VIEW, "gastenboekList", service.findAll()).addObject(new GastenboekEntry());
 	}
-	private static final String REDIRECT_GASTENBOEK_VIEW = "redirect:/gastenboek";
+	private static final String REDIRECT_NA_TOEVOEGEN = "redirect:/gastenboek";
 	@PostMapping()
 	ModelAndView toevoegen(@Valid GastenboekEntry gastenboekEntry, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return new ModelAndView(GASTENBOEK_VIEW, "gastenboek", service.findAll());
 		}
 		service.create(gastenboekEntry);
-		return new ModelAndView(REDIRECT_GASTENBOEK_VIEW);
+		return new ModelAndView(REDIRECT_NA_TOEVOEGEN);
+	}
+	private static final String REDIRECT_NA_DELETE = "redirect:/gastenboek";
+	@PostMapping("verwijderen")
+	ModelAndView verwijderen(long[] verwijderid) {
+		
+		if (verwijderid != null) {
+			for (long id : verwijderid) {
+				service.delete(id);
+			}
+		}
+		return new ModelAndView(REDIRECT_NA_DELETE);
 	}
 }

@@ -7,4 +7,5 @@ import be.vdab.frituurfrida.entities.GastenboekEntry;
 public interface GastenboekRepository {
 	void create(GastenboekEntry entry);
 	List<GastenboekEntry>findAll();
+	void delete(long id);
 }

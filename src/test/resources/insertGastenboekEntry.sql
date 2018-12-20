@@ -1,1 +1,1 @@
-insert into gastenboek(naam, datumTijd, bericht) values ("Linde", "2018/12/18", "Lekkerste frieten uit de streek!");
+insert into gastenboek(naam, datumTijd, bericht) values ("test", "2018/12/18", "test");

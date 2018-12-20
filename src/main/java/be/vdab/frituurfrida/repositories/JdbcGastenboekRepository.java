@@ -39,5 +39,11 @@ class JdbcGastenboekRepository implements GastenboekRepository {
 	public List<GastenboekEntry> findAll() {
 		return template.query(SELECT_ALL, gastenboekEntryRowMapper);
 	}
-
+	private static final String DELETE_GASTENBOEKENTRY  = "delete from gastenboek where id=?";
+	@Override
+	public void delete(long id) {
+		template.update(DELETE_GASTENBOEKENTRY, id);
+		
+	}
+	
 }

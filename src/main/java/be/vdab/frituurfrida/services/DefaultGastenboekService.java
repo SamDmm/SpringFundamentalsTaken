@@ -27,4 +27,9 @@ class DefaultGastenboekService implements GastenboekService {
 	public List<GastenboekEntry> findAll() {
 		return gastenboekRepository.findAll();
 	}
+	@Override
+	@Transactional (readOnly = false, isolation = Isolation.READ_COMMITTED)
+	public void delete(long id) {
+		gastenboekRepository.delete(id);
+	}
 }
